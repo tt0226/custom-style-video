@@ -30,8 +30,8 @@ export const Root = () => {
         component={EcommerceAd}
         durationInFrames={450}
         fps={30}
-        width={1920}
-        height={1080}
+        width={1280}
+        height={720}
         schema={EcommerceAdSchema}
         defaultProps={{
           brandName: '潮流旗舰店',
@@ -60,8 +60,8 @@ export const Root = () => {
         component={SlideVideo}
         durationInFrames={270}
         fps={30}
-        width={1920}
-        height={1080}
+        width={1280}
+        height={720}
         schema={SlideVideoSchema}
         defaultProps={{
           slides: [
