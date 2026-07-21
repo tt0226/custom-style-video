@@ -12,9 +12,7 @@ const client = new Anthropic.default();
 const PORT = process.env.PORT || 3001;
 const OUT_DIR = path.join(__dirname, 'out');
 const OUTPUT_FILE = path.join(OUT_DIR, 'output.mp4');
-// const REMOTION_BIN = path.join(__dirname, 'node_modules', '.bin', 'remotion');
-// 根据系统自动选择命令
-const REMOTION_CMD = process.platform === "win32" ? "remotion.cmd" : "remotion";
+const REMOTION_BIN = path.join(__dirname, 'node_modules', '.bin', 'remotion');
 
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
