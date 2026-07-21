@@ -452,51 +452,20 @@ const SLIDE_HTML = `<!DOCTYPE html>
 // ─── Job state ────────────────────────────────────────────────────────────────
 let job = { status: 'idle', step: '', error: '' };
 
-// function runRender(composition, props) {
-//   const args = ['render', composition, '--props', JSON.stringify(props), '--output', OUTPUT_FILE, '--overwrite'];
-//   if (process.env.BROWSER_EXECUTABLE) {
-//     args.push('--browser-executable', process.env.BROWSER_EXECUTABLE);
-//   }
-//   return new Promise((resolve, reject) => {
-//     execFile(
-//       REMOTION_BIN,
-//       args,
-//       { cwd: __dirname, timeout: 600_000 },
-//       (err, _stdout, stderr) => {
-//         if (err) reject(new Error(stderr || err.message));
-//         else resolve();
-//       },
-//     );
-//   });
-// }
 function runRender(composition, props) {
-  const args = [
-    'render',
-    composition,
-    '--props', JSON.stringify(props),
-    '--output', OUTPUT_FILE,
-    '--concurrency', '1'
-  ];
+  const args = ['render', composition, '--props', JSON.stringify(props), '--output', OUTPUT_FILE, '--overwrite'];
   if (process.env.BROWSER_EXECUTABLE) {
     args.push('--browser-executable', process.env.BROWSER_EXECUTABLE);
   }
-  // 容器必备浏览器启动参数
-  args.push(
-    '--chromium-flag', '--no-sandbox',
-    '--chromium-flag', '--disable-setuid-sandbox',
-    '--chromium-flag', '--disable-dev-shm-usage',
-    '--chromium-flag', '--disable-gpu'
-  );
-
   return new Promise((resolve, reject) => {
     execFile(
-      REMOTION_CMD, // ←这里改掉！！
+      REMOTION_BIN,
       args,
       { cwd: __dirname, timeout: 600_000 },
       (err, _stdout, stderr) => {
         if (err) reject(new Error(stderr || err.message));
         else resolve();
-      }
+      },
     );
   });
 }
