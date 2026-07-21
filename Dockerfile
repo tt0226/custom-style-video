@@ -1,9 +1,9 @@
 FROM node:20-bookworm-slim
 
-# 先全局安装pnpm
+# 安装pnpm
 RUN npm install -g pnpm
 
-# 安装Chromium与字体
+# 安装chromium和字体
 RUN apt-get update && apt-get install -y \
     chromium \
     fonts-noto-cjk \
@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# 重点：同时复制 package.json + pnpm-lock.yaml
+# 必须同时复制两个文件
 COPY package.json pnpm-lock.yaml ./
-# --shamefully-hoist 解决pnpm软链接导致.bin命令找不到（对应你本地ENOENT问题）
+# --shamefully-hoist 核心！把二进制提升到node_modules，让系统能找到remotion
 RUN pnpm install --shamefully-hoist
 
 COPY . .
